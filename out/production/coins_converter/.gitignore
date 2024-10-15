@@ -2,3 +2,4 @@
 /shelf/
 /.idea/workspace.xml
 config.properties
+.env_file

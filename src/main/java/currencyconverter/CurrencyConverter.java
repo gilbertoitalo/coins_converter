@@ -2,21 +2,29 @@ package src.main.java.currencyconverter;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
+import io.github.cdimascio.dotenv.Dotenv;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+
 public class CurrencyConverter {
+
+    Dotenv dotenv = Dotenv.configure()
+            .directory("C:/Users/Gilberto/Documents/ProgramOne/coins_converter")
+            .filename(".env_file")
+            .load();
     private static final HttpClient httpClient = HttpClient.newHttpClient();
     private static final Gson gson = new Gson();
+    ;
     private final String apiKey;
 
-    public CurrencyConverter(String apiKey) {
-        this.apiKey = apiKey;
+    {
+        apiKey = dotenv.get("API_KEY");
     }
+
 
     public JsonObject getExchangeRates(String baseCurrency) throws IOException, InterruptedException {
         String url = "https://v6.exchangerate-api.com/v6/" + apiKey + "/latest/" + baseCurrency;
